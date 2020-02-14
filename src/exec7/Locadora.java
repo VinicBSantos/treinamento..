@@ -49,89 +49,192 @@ public class Locadora {
 
 	public void decisaoBusca() {
 
-		int escolha = Integer.parseInt(JOptionPane.showInputDialog(
-				"Digite o modo de busca: \n 1 - Modelo \n 2 - Combustivel \n 3 - velocidade \n 4 - cor "));
+		// repetidor
+		boolean sair = false;
+		while (!sair) {
 
-		switch (escolha) {
-		case 1:
-			String model = JOptionPane.showInputDialog("Digite o modelo:").toUpperCase();
-			buscamodelo(model);
-			break;
+			// escolha
+			int escolha = Integer.parseInt(JOptionPane.showInputDialog(
+					"Digite o modo de busca: \n 1 - Modelo \n 2 - Combustivel \n 3 - Velocidade \n 4 - Cor \n 5 - Lista\n 0 - Sair \n"));
 
-		case 2:
-			String comb = JOptionPane.showInputDialog("Digite o combustivel:").toUpperCase();
-			buscacombustivel(comb);
-			break;
+			switch (escolha) {
+			case 1:
+				String model = JOptionPane.showInputDialog("Digite o modelo:").toUpperCase();
+				buscamodelo(model);
+				break;
 
-		case 3:
-			int velo = Integer.parseInt(JOptionPane.showInputDialog("Digite a velocidade"));
-			buscavelocidade(velo);
-			break;
+			case 2:
+				String comb = JOptionPane.showInputDialog("Digite o combustivel:").toUpperCase();
+				buscacombustivel(comb);
+				break;
 
-		case 4:
-			String cor = JOptionPane.showInputDialog("Digite a cor:").toUpperCase();
-			buscacor(cor);
-			break;
+			case 3:
+				int velo = Integer.parseInt(JOptionPane.showInputDialog("Digite a velocidade"));
+				buscavelocidade(velo);
+				break;
 
+			case 4:
+				String cor = JOptionPane.showInputDialog("Digite a cor:").toUpperCase();
+				buscacor(cor);
+				break;
+			case 5:
+				lista();
+				break;
+			
+
+			case 0:
+				JOptionPane.showMessageDialog(null, "você escolheu sair");
+				sair = true;
+				
+			default:
+				JOptionPane.showMessageDialog(null, "opção invalida\ntente novamente");
+				break;
+			}
 		}
 	}
 
+	// BUSCA DE MODELO
 	public void buscamodelo(String model) {
 		boolean encontrou = false;
-
+		String mensagem = "";
 		for (int i = 0; i < vetorCarro.length; i++) {
 
 			if (vetorCarro[i].model.equals(model)) {
-				vetorCarro[i].exibir();
-				encontrou = true;
-			}
+				mensagem = mensagem + "\nModelo do Carro: " + vetorCarro[i].model + "\nPlaca do carro: "
+						+ vetorCarro[i].placa + "\nVelocidade Maxima: " + vetorCarro[i].velo + "Km/h"
+						+ "\nTipo de combustivel: " + vetorCarro[i].comb + "\nCor do carro: " + vetorCarro[i].cor
+						+ "\nValor do veiculo : R$" + vetorCarro[i].valor + "\n";
 
+				encontrou = true;
+
+			}
 		}
 		if (!encontrou) {
-			JOptionPane.showMessageDialog(null, "não existe resultado para sua busca");
+			JOptionPane.showMessageDialog(null, "nenhum resultado encontrado");
+		} else {
+			JOptionPane.showMessageDialog(null, mensagem);
 		}
 	}
 
+	// BUSCA PELO COMBUSTIVEL
 	public void buscacombustivel(String comb) {
-
+		boolean encontrou = false;
+		String mensagem = "";
 		for (int i = 0; i < vetorCarro.length; i++) {
 
 			if (vetorCarro[i].comb.equals(comb)) {
-				vetorCarro[i].exibir();
-			}
+				mensagem = mensagem + "\nModelo do Carro: " + vetorCarro[i].model + "\nPlaca do carro: "
+						+ vetorCarro[i].placa + "\nVelocidade Maxima: " + vetorCarro[i].velo + "Km/h"
+						+ "\nTipo de combustivel: " + vetorCarro[i].comb + "\nCor do carro: " + vetorCarro[i].cor
+						+ "\nValor do veiculo : R$" + vetorCarro[i].valor + "\n";
 
+				encontrou = true;
+
+			}
+		}
+		if (!encontrou) {
+			JOptionPane.showMessageDialog(null, "nenhum resultado encontrado");
+		} else {
+			JOptionPane.showMessageDialog(null, mensagem);
 		}
 	}
 
+	// BUSCA VALOR
 	public void buscavalor(int valor) {
+		boolean encontrou = false;
 
+		String mensagem = "";
 		for (int i = 0; i < vetorCarro.length; i++) {
 
 			if (vetorCarro[i].valor == (valor)) {
-				vetorCarro[i].exibir();
+
+				mensagem = mensagem + "\nModelo do Carro: " + vetorCarro[i].model + "\nPlaca do carro: "
+						+ vetorCarro[i].placa + "\nVelocidade Maxima: " + vetorCarro[i].velo + "Km/h"
+						+ "\nTipo de combustivel: " + vetorCarro[i].comb + "\nCor do carro: " + vetorCarro[i].cor
+						+ "\nValor do veiculo : R$" + vetorCarro[i].valor + "\n";
+
+				encontrou = true;
+
 			}
+		}
+		if (!encontrou) {
+			JOptionPane.showMessageDialog(null, "nenhum resultado encontrado");
+		} else {
+			JOptionPane.showMessageDialog(null, mensagem);
 		}
 	}
 
+	// BUSCA VELOCIDADE
 	public void buscavelocidade(int velo) {
-
+		boolean encontrou = false;
+		String mensagem = "";
 		for (int i = 0; i < vetorCarro.length; i++) {
 
 			if (vetorCarro[i].velo == (velo)) {
-				vetorCarro[i].exibir();
-			}
 
+				mensagem = mensagem + "\nModelo do Carro: " + vetorCarro[i].model + "\nPlaca do carro: "
+						+ vetorCarro[i].placa + "\nVelocidade Maxima: " + vetorCarro[i].velo + "Km/h"
+						+ "\nTipo de combustivel: " + vetorCarro[i].comb + "\nCor do carro: " + vetorCarro[i].cor
+						+ "\nValor do veiculo : R$" + vetorCarro[i].valor + "\n";
+
+				encontrou = true;
+
+			}
+		}
+		if (!encontrou) {
+			JOptionPane.showMessageDialog(null, "nenhum resultado encontrado");
+		} else {
+			JOptionPane.showMessageDialog(null, mensagem);
 		}
 	}
 
+	// BUSCA COR
 	public void buscacor(String cor) {
-
+		boolean encontrou = false;
+		String mensagem = "";
 		for (int i = 0; i < vetorCarro.length; i++) {
 
 			if (vetorCarro[i].cor.equals(cor)) {
-				vetorCarro[i].exibir();
 			}
 		}
+		if (!encontrou) {
+			JOptionPane.showMessageDialog(null, "nenhum resultado encontrado");
+		} else {
+			JOptionPane.showMessageDialog(null, mensagem);
+		}
+	}
+
+	// ORDENAR
+	public void ordenarCompra() {
+
+		for (int i = 0; i < vetorCarro.length - 1; i++) {
+			for (int j = 0; j < (vetorCarro.length - 1); j++) {
+
+				if (vetorCarro[i].valor > vetorCarro[j].valor) {
+					Carro aux = vetorCarro[i];
+					vetorCarro[i] = vetorCarro[j];
+					vetorCarro[j] = aux;
+
+				}
+			}
+
+		}
+
+	}
+
+	// lista
+	public void lista() {
+
+		ordenarCompra();
+		String mensagem = "";
+
+		for (int i = 0; i < vetorCarro.length; i++) {
+			mensagem = mensagem + "\nModelo do Carro: " + vetorCarro[i].model + "\nPlaca do carro: "
+					+ vetorCarro[i].placa + "\nVelocidade Maxima: " + vetorCarro[i].velo + "Km/h"
+					+ "\nTipo de combustivel: " + vetorCarro[i].comb + "\nCor do carro: " + vetorCarro[i].cor
+					+ "\nValor do veiculo : R$" + vetorCarro[i].valor + "\n";
+		}
+		JOptionPane.showMessageDialog(null, mensagem);
 	}
 
 }
