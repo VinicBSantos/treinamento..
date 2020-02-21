@@ -1,33 +1,41 @@
 package exec7;
 
-import javax.swing.JOptionPane;
+/**
+ * Classe de carro
+ * 
+ * @author vinicius santos
+ * @since 13/02/2020
+ * @version 0.1
+ */
 
 public class Carro {
-
-	String model;
+	String modelo;
 	String placa;
-	int velo;
-	String comb;
+	int velocidadeMaxima;
+	String combustivel;
 	double valor;
 	String cor;
 	boolean vendido = false;
 	
-	public Carro(String model, String placa, int velo, String comb, double valor,String cor) {
+	public Carro () {
 		
-		this.model = model;
+	}
+
+	public Carro(String modelo, String placa, int velocidadeMaxima, String combustivel, double valor, String cor) {
+		this.modelo = modelo;
 		this.placa = placa;
-		this.velo = velo;
-		this.comb = comb;
+		this.velocidadeMaxima = velocidadeMaxima;
+		this.combustivel = combustivel;
 		this.valor = valor;
 		this.cor = cor;
 	}
-
 	
-	public void exibir() {
-	
-	JOptionPane.showMessageDialog(null,"-modelo: "+model+"\n-cor: "+cor+"\n-combustivel: "+comb+"\n-Velocidade maxima: "+velo+"Km/h");
-	
-	}	
+	public void exibeResultado() {
+		System.out.println("Modelo: " + modelo);
+		System.out.println("Placa: " + placa);
+		System.out.println("Velocidade Maxima: " + velocidadeMaxima + " KM/H");
+		System.out.println("Tipo de combustivel: " + combustivel);
+		System.out.println("Valor: R$" + valor);
+		System.out.println("Cor: " + cor);
+	}
 }
-	
-

@@ -6,6 +6,7 @@ public class Aluno {
 	public static void main (String[]args) {
 	
 	String nome, curso, cidade, dataNasc, data;
+	
 	public Aluno(String nome, String curso, String cidade, String dataNasc) {
 		
 		this.nome = nome;

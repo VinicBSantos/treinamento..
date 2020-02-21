@@ -2,8 +2,6 @@ package exec5;
 
 import java.util.Scanner;
 
-import sun.applet.Main;
-
 public class AlugaFilme {
 
 	/**

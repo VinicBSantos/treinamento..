@@ -2,239 +2,325 @@ package exec7;
 
 import javax.swing.JOptionPane;
 
-public class Locadora {
+/**
+ * Classe de locadora - pesquisa e ordem
+ * 
+ * @author vinicius santos
+ * @since 13/02/2020
+ * @version 0.1
+ */
 
-	static Carro vetorCarro[];
+public class Locadora {
+	// Criação e atribuição dos vetores
+	Carro vetorCarro[] = new Carro[20];
+	int posicao = 0;
+
+	// Metodo que adiciona carro
+	public boolean adicionaCarro(Carro carro) {
+		if (posicao >= vetorCarro.length)
+			return false;
+
+		vetorCarro[posicao++] = carro;
+		return true;
+	}
+
+	// Metodo exibe o adiciona carro
+
+	public void exibeAdicionaCarro() {
+		String modelo = JOptionPane.showInputDialog("Informe o modelo: ");
+		String placa = JOptionPane.showInputDialog("Informe a placa: ");
+		int velocidadeMaxima = Integer.parseInt(JOptionPane.showInputDialog("Informe a velocidade maxima: "));
+		String combustivel = JOptionPane.showInputDialog("Informe o tipo de combustivel: ");
+		double valor = Double.parseDouble(JOptionPane.showInputDialog("Informe o valor: "));
+		String cor = JOptionPane.showInputDialog("Informe a cor: ");
+
+		Carro carro = new Carro(modelo, placa, velocidadeMaxima, combustivel, valor, cor);
+		boolean adicionou = adicionaCarro(carro);
+		if (adicionou == true) {
+			JOptionPane.showMessageDialog(null, "Carro adicionado com sucesso!");
+		} else {
+			JOptionPane.showMessageDialog(null, "Garagem lotada");
+		}
+	}
+
+	// Metodo que exibe por modelo
+	public void exibeModelo() {
+		boolean encontrou = false;
+		String message = "";
+		String modeloCarro = JOptionPane.showInputDialog("Informe o modelo desejado: ").toUpperCase();
+		for (int i = 0; i < posicao; i++) {
+			if (vetorCarro[i].modelo.equals(modeloCarro)) {
+				message = message + "\n Modelo do carro: " + vetorCarro[i].modelo + "\n" + "\n Placa: "
+						+ vetorCarro[i].placa + "\n" + "\n Velocidade maxima: " + vetorCarro[i].velocidadeMaxima + "\n"
+						+ "\n Tipo de combustivel: " + vetorCarro[i].combustivel + "\n" + "\n Valor do carro: "
+						+ vetorCarro[i].valor + "\n" + "\n Cor: " + vetorCarro[i].cor;
+				encontrou = true;
+			}
+		}
+		if (!encontrou) {
+			JOptionPane.showMessageDialog(null, "Não encontrou!");
+		} else {
+			JOptionPane.showMessageDialog(null, message);
+		}
+	}
+
+	// Metodo que exibe por velocidade maxima
+	public void exibeVelocidade() {
+		boolean encontrou = false;
+		String message = "";
+		String velocidadeCarro = JOptionPane.showInputDialog("Informe velocidade maxima desejada: ").toUpperCase();
+		int velocidadeMaxima = Integer.parseInt(velocidadeCarro);
+		for (int i = 0; i < posicao; i++) {
+			if (vetorCarro[i].velocidadeMaxima == velocidadeMaxima) {
+				message = message + "\n Modelo do carro: " + vetorCarro[i].modelo + "\n" + "\n Placa: "
+						+ vetorCarro[i].placa + "\n" + "\n Velocidade maxima: " + vetorCarro[i].velocidadeMaxima + "\n"
+						+ "\n Tipo de combustivel: " + vetorCarro[i].combustivel + "\n" + "\n Valor do carro: "
+						+ vetorCarro[i].valor + "\n" + "\n Cor: " + vetorCarro[i].cor;
+				encontrou = true;
+			}
+		}
+		if (!encontrou) {
+			JOptionPane.showMessageDialog(null, "Não encontrou!");
+		} else {
+			JOptionPane.showMessageDialog(null, message);
+		}
+	}
+
+	// Metodo que exibe por tipo de combustivel
+	public void exibeCombustivel() {
+		boolean encontrou = false;
+		String message = "";
+		String combustivelCarro = JOptionPane.showInputDialog("Informe o tipo de combustivel desejado: ").toUpperCase();
+		for (int i = 0; i < posicao; i++) {
+			if (vetorCarro[i].combustivel.equals(combustivelCarro)) {
+				message = message + "\n Modelo do carro: " + vetorCarro[i].modelo + "\n" + "\n Placa: "
+						+ vetorCarro[i].placa + "\n" + "\n Velocidade maxima: " + vetorCarro[i].velocidadeMaxima + "\n"
+						+ "\n Tipo de combustivel: " + vetorCarro[i].combustivel + "\n" + "\n Valor do carro: R$"
+						+ vetorCarro[i].valor + "\n" + "\n Cor: " + vetorCarro[i].cor;
+				encontrou = true;
+			}
+		}
+		if (!encontrou) {
+			JOptionPane.showMessageDialog(null, "Não encontrou!");
+		} else {
+			JOptionPane.showMessageDialog(null, message);
+		}
+	}
+
+	// Metodo que exibe por cor
+	public void exibeCor() {
+		boolean encontrou = false;
+		String message = "";
+		String corCarro = JOptionPane.showInputDialog("Informe a cor desejada: ").toUpperCase();
+		for (int i = 0; i < posicao; i++) {
+			if (vetorCarro[i].cor.equals(corCarro)) {
+				message = message + "\n Modelo do carro: " + vetorCarro[i].modelo + "\n" + "\n Placa: "
+						+ vetorCarro[i].placa + "\n" + "\n Velocidade maxima: " + vetorCarro[i].velocidadeMaxima + "\n"
+						+ "\n Tipo de combustivel: " + vetorCarro[i].combustivel + "\n" + "\n Valor do carro: "
+						+ vetorCarro[i].valor + "\n" + "\n Cor: " + vetorCarro[i].cor;
+				encontrou = true;
+			}
+		}
+		if (!encontrou) {
+			JOptionPane.showMessageDialog(null, "Não encontrou!");
+		} else {
+			JOptionPane.showMessageDialog(null, message);
+		}
+	}
+
+	// Metodo que cria a lita maior para o menor
+	public void exibeLista() {
+		Carro carroOrdemValor;
+		for (int i = 0; i < posicao; i++) {
+			for (int j = 0; j < posicao; j++) {
+				if (vetorCarro[i].valor > vetorCarro[j].valor) {
+					carroOrdemValor = vetorCarro[i];
+					vetorCarro[i] = vetorCarro[j];
+					vetorCarro[j] = carroOrdemValor;
+				}
+			}
+		}
+	}
+
+	// Metodo que exibe a lita maior para o menor
+	public void exibeMetodoLista() {
+		exibeLista();
+		String message = "";
+		for (int i = 0; i < posicao; i++) {
+			message = message + "\n Modelo do carro: " + vetorCarro[i].modelo + "\n" + "\n Placa: "
+					+ vetorCarro[i].placa + "\n" + "\n Velocidade maxima: " + vetorCarro[i].velocidadeMaxima + "\n"
+					+ "\n Tipo de combustivel: " + vetorCarro[i].combustivel + "\n" + "\n Valor do carro: "
+					+ vetorCarro[i].valor + "\n" + "\n Cor: " + vetorCarro[i].cor;
+		}
+		JOptionPane.showMessageDialog(null, message);
+	}
+
+	// Metodo que cria a lita menor para o maior
+	public void exibeLista2() {
+		Carro carroOrdemValor;
+		for (int i = 0; i < posicao; i++) {
+			for (int j = 0; j < posicao; j++) {
+				if (vetorCarro[i].valor < vetorCarro[j].valor) {
+					carroOrdemValor = vetorCarro[i];
+					vetorCarro[i] = vetorCarro[j];
+					vetorCarro[j] = carroOrdemValor;
+				}
+			}
+		}
+	}
+
+	// Metodo que exibe a lita menor para o maior
+	public void exibeMetodoLista2() {
+		exibeLista2();
+		String message = "";
+		for (int i = 0; i < posicao; i++) {
+		}
+	}
+
+	// Metodo exibe tudo
+	public void exibeTudo() {
+		String message = "";
+		for (int i = 0; i < posicao; i++) {
+			if (!vetorCarro[i].vendido) {
+				message = message + "\n Modelo do carro: " + vetorCarro[i].modelo + "\n" + "\n Placa: "
+						+ vetorCarro[i].placa + "\n" + "\n Velocidade maxima: " + vetorCarro[i].velocidadeMaxima + "\n"
+						+ "\n Tipo de combustivel: " + vetorCarro[i].combustivel + "\n" + "\n Valor do carro: "
+						+ vetorCarro[i].valor + "\n" + "\n Cor: " + vetorCarro[i].cor;
+			}
+		}
+		JOptionPane.showMessageDialog(null, message);
+	}
+
+	// Metodo que exibe compra
+	public void exibeCompra() {
+		Carro[] carroAuxiliar = new Carro[posicao];
+		exibeMetodoLista2();
+		boolean encontrou = false;
+		String message = "";
+		int contador = 1;
+		String modeloCarro = JOptionPane.showInputDialog("Informe o modelo desejada: ").toUpperCase();
+		String corCarro = JOptionPane.showInputDialog("Informe a cor desejada: ").toUpperCase();
+		for (int i = 0; i < posicao; i++) {
+			if (vetorCarro[i].modelo.equals(modeloCarro) && vetorCarro[i].cor.equals(corCarro)) {
+				carroAuxiliar[contador] = vetorCarro[i];
+				message = message + "\nCarro numero " + contador++ + "\n" + "Modelo do carro: " + vetorCarro[i].modelo
+						+ "\n" + "\n Placa: " + vetorCarro[i].placa + "\n" + "\n Velocidade maxima: "
+						+ vetorCarro[i].velocidadeMaxima + "\n" + "\n Tipo de combustivel: " + vetorCarro[i].combustivel
+						+ "\n" + "\n Valor do carro: " + vetorCarro[i].valor + "\n" + "\n Cor: " + vetorCarro[i].cor;
+				encontrou = true;
+			}
+		}
+		if (!encontrou) {
+			JOptionPane.showMessageDialog(null, "Não encontrou!");
+		} else {
+			JOptionPane.showMessageDialog(null, message);
+		}
+		int escolha = Integer.parseInt(JOptionPane.showInputDialog("Informe o carro desejado: "));
+
+		for (int i = 0; i <= contador; i++) {
+			try {
+				if (i == escolha) {
+					int valor = Integer.parseInt(JOptionPane.showInputDialog(
+							"Valor do carro: R$" + carroAuxiliar[i].valor + "\n" + "Informe o valor a ser pago: R$"));
+					if (valor == carroAuxiliar[i].valor) {
+						JOptionPane.showMessageDialog(null, "Compra efetuada");
+						excluirCadastro(carroAuxiliar[i]);
+					} else if (valor > carroAuxiliar[i].valor) {
+						JOptionPane.showMessageDialog(null,
+								"Valor a ser devolvido: R$" + (valor - carroAuxiliar[i].valor));
+						excluirCadastro(carroAuxiliar[i]);
+					} else {
+						JOptionPane.showMessageDialog(null, "Valor insuficiente");
+					}
+				}
+			} catch (NumberFormatException e) {
+				JOptionPane.showMessageDialog(null, "Favor digitar o valor solicitado corretamente");
+			}
+		}
+	}
+
+	public void excluirCadastro(Carro carro) {
+		for (int i = 0; i < posicao; i++) {
+			if (carro.placa.equals(vetorCarro[i].placa)) {
+				vetorCarro[i].vendido = true;
+				break;
+			}
+		}
+		exibeLista();
+		exibeTudo();
+	}
+
+	// Metodo que define a escolhas
+	public void exibeEscolhas() {
+		boolean fim = true;
+		while (fim) {
+
+			try {
+				int escolha = Integer.parseInt(JOptionPane.showInputDialog(
+						"qual a forma de pesquisa?\n\n1 - Pesquisa por modelo \n 2 - Pesquisa por velocidade maxima \n 3 - Pesquisa  por tipo de combustivel \n 4 - Pesquisa por cor \n 5 - Lista \n 6 - Compra\n 7 - Adicionar carro \n 0 - Terminar"));
+
+				switch (escolha) {
+				case 1:
+					exibeModelo();
+					break;
+				case 2:
+					exibeVelocidade();
+					break;
+				case 3:
+					exibeCombustivel();
+					break;
+				case 4:
+					exibeCor();
+					break;
+				case 5:
+					exibeMetodoLista();
+					break;
+				case 6:
+					exibeCompra();
+					break;
+				case 7:
+					exibeAdicionaCarro();
+					break;
+				case 0:
+					fim = false;
+					break;
+
+				default:
+					JOptionPane.showMessageDialog(null, "Opção não encontrada");
+					break;
+				}
+			} catch (NumberFormatException e) {
+				JOptionPane.showMessageDialog(null, "digite a opção corretamente");
+			}
+		}
+	}
 
 	public static void main(String[] args) {
 
-		vetorCarro = new Carro[10];
-		Carro carro1 = new Carro("OPALA", "OLD-1972", 260, "GASOLINA", 20000, "PRETO");
-		vetorCarro[0] = carro1;
+		Carro carro1 = new Carro("OPALA", "DFK-5029", 240, "GASOLINA", 15000, "VERDE");
+		Carro carro2 = new Carro("FUSCA", "OMP-8120", 160, "GASOLINA", 5000, "AZUL");
+		Carro carro3 = new Carro("FIESTA", "COD-7209", 220, "ALCOOL", 30000, "BRANCO");
+		Carro carro4 = new Carro("SUPRA", "ODK-4560", 260, "GASOLINA", 180000, "VERMELHO");
+		Carro carro5 = new Carro("OPALA", "FID-8075", 240, "GASOLINA", 13000, "PRETO");
+		Carro carro6 = new Carro("RANGER", "JDK-6532", 220, "DIESEL", 110000, "PRETO");
+		Carro carro7 = new Carro("MAREA", "JRE-8901", 260, "GASOLINA", 6000, "BRANCO");
+		Carro carro8 = new Carro("GOL", "TOS-7465", 220, "FLEX", 35000, "PRETO");
+		Carro carro9 = new Carro("GOL", "DBZ-2100", 220, "FLEX", 32000, "AZUL");
+		Carro carro10 = new Carro("CHEVETTE", "HKS-4506", 220, "GASOLINA", 4000, "AMARELO");
 
-		Carro carro2 = new Carro("PORSHE", "FON-1242", 320, "GASOLINA", 150000, "AMARELO");
-		vetorCarro[1] = carro2;
+		Locadora locadora = new Locadora();
 
-		Carro carro3 = new Carro("SUPRA", "BLZ-1902", 320, "GASOLINA", 180000, "BRANCO");
-		vetorCarro[2] = carro3;
+		locadora.adicionaCarro(carro1);
+		locadora.adicionaCarro(carro2);
+		locadora.adicionaCarro(carro3);
+		locadora.adicionaCarro(carro4);
+		locadora.adicionaCarro(carro5);
+		locadora.adicionaCarro(carro6);
+		locadora.adicionaCarro(carro7);
+		locadora.adicionaCarro(carro8);
+		locadora.adicionaCarro(carro9);
+		locadora.adicionaCarro(carro10);
 
-		Carro carro4 = new Carro("UNO", "SLZ-4820", 180, "ALCOOL", 13000, "BRANCO");
-		vetorCarro[3] = carro4;
-
-		Carro carro5 = new Carro("GOL", "GOL-9520", 210, "ALCOOL", 50000, "CINZA");
-		vetorCarro[4] = carro5;
-
-		Carro carro6 = new Carro("FOX", "KPT-1596", 160, "ALCOOL", 80000, "CINZA");
-		vetorCarro[5] = carro6;
-
-		Carro carro7 = new Carro("UNO", "MVP-2226", 180, "GASOLINA", 18000, "PRETO");
-		vetorCarro[6] = carro7;
-
-		Carro carro8 = new Carro("CHEVETTE", "MVV-4026", 180, "GASOLINA", 18000, "AMARELO");
-		vetorCarro[7] = carro8;
-
-		Carro carro9 = new Carro("FUSCA", "AWP-3267", 160, "GASOLINA", 20000, "AZUL");
-		vetorCarro[8] = carro9;
-
-		Carro carro10 = new Carro("GOL", "CSV-3267", 210, "ALCOOL", 20000, "BRANCO");
-		vetorCarro[9] = carro10;
-
-		new Locadora();
-
+		locadora.exibeEscolhas();
 	}
-
-	Locadora() {
-		decisaoBusca();
-	}
-
-	public void decisaoBusca() {
-
-		// repetidor
-		boolean sair = false;
-		while (!sair) {
-
-			// escolha
-			int escolha = Integer.parseInt(JOptionPane.showInputDialog(
-					"Digite o modo de busca: \n 1 - Modelo \n 2 - Combustivel \n 3 - Velocidade \n 4 - Cor \n 5 - Lista\n 0 - Sair \n"));
-
-			switch (escolha) {
-			case 1:
-				String model = JOptionPane.showInputDialog("Digite o modelo:").toUpperCase();
-				buscamodelo(model);
-				break;
-
-			case 2:
-				String comb = JOptionPane.showInputDialog("Digite o combustivel:").toUpperCase();
-				buscacombustivel(comb);
-				break;
-
-			case 3:
-				int velo = Integer.parseInt(JOptionPane.showInputDialog("Digite a velocidade"));
-				buscavelocidade(velo);
-				break;
-
-			case 4:
-				String cor = JOptionPane.showInputDialog("Digite a cor:").toUpperCase();
-				buscacor(cor);
-				break;
-			case 5:
-				lista();
-				break;
-			
-
-			case 0:
-				JOptionPane.showMessageDialog(null, "você escolheu sair");
-				sair = true;
-				
-			default:
-				JOptionPane.showMessageDialog(null, "opção invalida\ntente novamente");
-				break;
-			}
-		}
-	}
-
-	// BUSCA DE MODELO
-	public void buscamodelo(String model) {
-		boolean encontrou = false;
-		String mensagem = "";
-		for (int i = 0; i < vetorCarro.length; i++) {
-
-			if (vetorCarro[i].model.equals(model)) {
-				mensagem = mensagem + "\nModelo do Carro: " + vetorCarro[i].model + "\nPlaca do carro: "
-						+ vetorCarro[i].placa + "\nVelocidade Maxima: " + vetorCarro[i].velo + "Km/h"
-						+ "\nTipo de combustivel: " + vetorCarro[i].comb + "\nCor do carro: " + vetorCarro[i].cor
-						+ "\nValor do veiculo : R$" + vetorCarro[i].valor + "\n";
-
-				encontrou = true;
-
-			}
-		}
-		if (!encontrou) {
-			JOptionPane.showMessageDialog(null, "nenhum resultado encontrado");
-		} else {
-			JOptionPane.showMessageDialog(null, mensagem);
-		}
-	}
-
-	// BUSCA PELO COMBUSTIVEL
-	public void buscacombustivel(String comb) {
-		boolean encontrou = false;
-		String mensagem = "";
-		for (int i = 0; i < vetorCarro.length; i++) {
-
-			if (vetorCarro[i].comb.equals(comb)) {
-				mensagem = mensagem + "\nModelo do Carro: " + vetorCarro[i].model + "\nPlaca do carro: "
-						+ vetorCarro[i].placa + "\nVelocidade Maxima: " + vetorCarro[i].velo + "Km/h"
-						+ "\nTipo de combustivel: " + vetorCarro[i].comb + "\nCor do carro: " + vetorCarro[i].cor
-						+ "\nValor do veiculo : R$" + vetorCarro[i].valor + "\n";
-
-				encontrou = true;
-
-			}
-		}
-		if (!encontrou) {
-			JOptionPane.showMessageDialog(null, "nenhum resultado encontrado");
-		} else {
-			JOptionPane.showMessageDialog(null, mensagem);
-		}
-	}
-
-	// BUSCA VALOR
-	public void buscavalor(int valor) {
-		boolean encontrou = false;
-
-		String mensagem = "";
-		for (int i = 0; i < vetorCarro.length; i++) {
-
-			if (vetorCarro[i].valor == (valor)) {
-
-				mensagem = mensagem + "\nModelo do Carro: " + vetorCarro[i].model + "\nPlaca do carro: "
-						+ vetorCarro[i].placa + "\nVelocidade Maxima: " + vetorCarro[i].velo + "Km/h"
-						+ "\nTipo de combustivel: " + vetorCarro[i].comb + "\nCor do carro: " + vetorCarro[i].cor
-						+ "\nValor do veiculo : R$" + vetorCarro[i].valor + "\n";
-
-				encontrou = true;
-
-			}
-		}
-		if (!encontrou) {
-			JOptionPane.showMessageDialog(null, "nenhum resultado encontrado");
-		} else {
-			JOptionPane.showMessageDialog(null, mensagem);
-		}
-	}
-
-	// BUSCA VELOCIDADE
-	public void buscavelocidade(int velo) {
-		boolean encontrou = false;
-		String mensagem = "";
-		for (int i = 0; i < vetorCarro.length; i++) {
-
-			if (vetorCarro[i].velo == (velo)) {
-
-				mensagem = mensagem + "\nModelo do Carro: " + vetorCarro[i].model + "\nPlaca do carro: "
-						+ vetorCarro[i].placa + "\nVelocidade Maxima: " + vetorCarro[i].velo + "Km/h"
-						+ "\nTipo de combustivel: " + vetorCarro[i].comb + "\nCor do carro: " + vetorCarro[i].cor
-						+ "\nValor do veiculo : R$" + vetorCarro[i].valor + "\n";
-
-				encontrou = true;
-
-			}
-		}
-		if (!encontrou) {
-			JOptionPane.showMessageDialog(null, "nenhum resultado encontrado");
-		} else {
-			JOptionPane.showMessageDialog(null, mensagem);
-		}
-	}
-
-	// BUSCA COR
-	public void buscacor(String cor) {
-		boolean encontrou = false;
-		String mensagem = "";
-		for (int i = 0; i < vetorCarro.length; i++) {
-
-			if (vetorCarro[i].cor.equals(cor)) {
-			}
-		}
-		if (!encontrou) {
-			JOptionPane.showMessageDialog(null, "nenhum resultado encontrado");
-		} else {
-			JOptionPane.showMessageDialog(null, mensagem);
-		}
-	}
-
-	// ORDENAR
-	public void ordenarCompra() {
-
-		for (int i = 0; i < vetorCarro.length - 1; i++) {
-			for (int j = 0; j < (vetorCarro.length - 1); j++) {
-
-				if (vetorCarro[i].valor > vetorCarro[j].valor) {
-					Carro aux = vetorCarro[i];
-					vetorCarro[i] = vetorCarro[j];
-					vetorCarro[j] = aux;
-
-				}
-			}
-
-		}
-
-	}
-
-	// lista
-	public void lista() {
-
-		ordenarCompra();
-		String mensagem = "";
-
-		for (int i = 0; i < vetorCarro.length; i++) {
-			mensagem = mensagem + "\nModelo do Carro: " + vetorCarro[i].model + "\nPlaca do carro: "
-					+ vetorCarro[i].placa + "\nVelocidade Maxima: " + vetorCarro[i].velo + "Km/h"
-					+ "\nTipo de combustivel: " + vetorCarro[i].comb + "\nCor do carro: " + vetorCarro[i].cor
-					+ "\nValor do veiculo : R$" + vetorCarro[i].valor + "\n";
-		}
-		JOptionPane.showMessageDialog(null, mensagem);
-	}
-
 }
